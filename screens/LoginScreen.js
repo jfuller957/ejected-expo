@@ -1,6 +1,9 @@
 import React from 'react';
-import  { View, Text, TextInput, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import  { View, Text, TextInput, StyleSheet, Button, TouchableOpacity, Alert } from 'react-native';
 import * as firebase from 'firebase';
+
+import * as Facebook from 'expo-facebook'
+
 
 
 export default class LoginScreen extends React.Component {
@@ -16,6 +19,36 @@ export default class LoginScreen extends React.Component {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch(error => this.setState({ errorMessage: error.message}))
   }
+
+
+ loginWithFacebook = async() => {
+  try {
+    const {
+      type,
+      token,
+      expires,
+      permissions,
+      declinedPermissions,
+    } = await Facebook.logInWithReadPermissionsAsync('443898396314593', {
+      permissions: ['email','public_profile'],
+    });
+    if (type === 'success') {
+      // Get the user's name using Facebook's Graph API
+      const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+      Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+
+      //*****ROB NOTE - NEED TO FIX THE BELOW TO LOGIN OR REGISTER
+      //NEED TO LOGIN OR REGISTER
+      //auth.signInWithCrediential(response)
+    } else {
+      // type === 'cancel'
+    }
+  } catch ({ message }) {
+    alert(`Facebook Login Error: ${message}`);
+  }
+}
+
+
 
   render(){
     return (
@@ -56,6 +89,18 @@ export default class LoginScreen extends React.Component {
             New to SparkUpYourLife? <Text style={{fontWeight: '500'}}>Register</Text>
           </Text>
         </TouchableOpacity>
+
+
+        <View>
+        <Text> --------- </Text>
+        <Text> Login using Facebook below:</Text>
+        <TouchableOpacity
+                  onPress={()=> this.loginWithFacebook()}
+                  style={{backgroundColor: 'blue', padding: 10}}>
+                    <Text style={{color: 'white'}}> Login With Facebook </Text>
+           </TouchableOpacity>
+      </View>
+
 
       </View>
     )
