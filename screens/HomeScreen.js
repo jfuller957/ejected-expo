@@ -48,7 +48,7 @@ export default class HomeScreen extends React.Component{
 
           <View style={styles.getStartedContainer}>
             <DevelopmentModeNotice />
-            <Text> Welcome {this.state.email}!</Text>
+            <Text> Welcome {this.state.displayName}!</Text>
             <Text style={styles.getStartedText}>Get started by opening</Text>
 
             <View
