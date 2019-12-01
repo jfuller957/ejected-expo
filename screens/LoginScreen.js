@@ -18,7 +18,7 @@ import * as GoogleSignIn from 'expo-google-sign-in';
 
 */
 
- 
+
 
 
 export default class LoginScreen extends React.Component {
@@ -42,7 +42,7 @@ export default class LoginScreen extends React.Component {
   initAsync = async () => {
     await GoogleSignIn.initAsync({
      behavior: 'web',
-      clientId: '949736465328-87l4bcm3stjqdmn5e44qjkukrt1puc6c.apps.googleusercontent.com',
+      clientId: 'SECRET',
     });
     this._syncUserWithStateAsync();
   };
@@ -87,7 +87,7 @@ signInWithGoogleAsync = async () => {
       //androidClientId: YOUR_CLIENT_ID_HERE,
       behavior: 'web',
       iosClientId:
-      '949736465328-87l4bcm3stjqdmn5e44qjkukrt1puc6c.apps.googleusercontent.com'
+      'SECRET'
       ,
       scopes: ['profile', 'email'],
     });
