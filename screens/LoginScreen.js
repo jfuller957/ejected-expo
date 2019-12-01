@@ -2,8 +2,23 @@ import React from 'react';
 import  { View, Text, TextInput, StyleSheet, Button, TouchableOpacity, Alert } from 'react-native';
 import * as firebase from 'firebase';
 
-import * as Facebook from 'expo-facebook'
+import * as Facebook from 'expo-facebook';
 
+import * as Google from 'expo-google-app-auth';
+
+
+//ROB - RELATED TO CHANGE IN MODULES BELOW
+/*
+import { AppAuth } from 'expo-app-auth';
+
+// This value should contain your REVERSE_CLIENT_ID
+const { URLSchemes } = AppAuth;
+
+import * as GoogleSignIn from 'expo-google-sign-in';
+
+*/
+
+ 
 
 
 export default class LoginScreen extends React.Component {
@@ -11,7 +26,83 @@ export default class LoginScreen extends React.Component {
     email: '',
     password: '',
     errorMessage: null
+    //Rob - Change in modules code below
+    //user: null
   }
+
+
+  //ROB - RELATES TO CHANGE IN EXPO MODULES CODE BELOW
+  /*
+  componentDidMount() {
+    this.initAsync();
+  }
+
+
+
+  initAsync = async () => {
+    await GoogleSignIn.initAsync({
+     behavior: 'web',
+      clientId: '949736465328-87l4bcm3stjqdmn5e44qjkukrt1puc6c.apps.googleusercontent.com',
+    });
+    this._syncUserWithStateAsync();
+  };
+
+
+  _syncUserWithStateAsync = async () => {
+    const user = await GoogleSignIn.signInSilentlyAsync();
+    this.setState({ user });
+  };
+
+  signOutAsync = async () => {
+    await GoogleSignIn.signOutAsync();
+    this.setState({ user: null });
+  };
+
+  signInAsync = async () => {
+    try {
+      await GoogleSignIn.askForPlayServicesAsync();
+      const { type, user } = await GoogleSignIn.signInAsync();
+      if (type === 'success') {
+        this._syncUserWithStateAsync();
+      }
+    } catch ({ message }) {
+      alert('login: Error:' + message);
+    }
+  };
+
+  loginWithGoogle = () => {
+    if (this.state.user) {
+      this.signOutAsync();
+    } else {
+      this.signInAsync();
+    }
+  };
+
+*/
+
+//ROB NOTE - THE BELOW SIGN IN WORKS BETTER THAN THE CHANGES I TRIED TO MAKE TO GOOGLE LOGIN BUT IS DEPRECATED AND GIVES WARNINGS
+signInWithGoogleAsync = async () => {
+  try {
+    const result = await Google.logInAsync({
+      //androidClientId: YOUR_CLIENT_ID_HERE,
+      behavior: 'web',
+      iosClientId:
+      '949736465328-87l4bcm3stjqdmn5e44qjkukrt1puc6c.apps.googleusercontent.com'
+      ,
+      scopes: ['profile', 'email'],
+    });
+
+    if (result.type === 'success') {
+      return result.accessToken;
+    } else {
+      return { cancelled: true };
+    }
+  } catch (e) {
+    return { error: true };
+  }
+}
+
+
 
   handleLogin = () => {
     const { email, password } = this.state;
@@ -99,6 +190,13 @@ export default class LoginScreen extends React.Component {
                   style={{backgroundColor: 'blue', padding: 10}}>
                     <Text style={{color: 'white'}}> Login With Facebook </Text>
            </TouchableOpacity>
+
+           <TouchableOpacity
+                  onPress={()=> this.signInWithGoogleAsync()}
+                  style={{backgroundColor: 'white', padding: 10}}>
+                    <Text style={{color: 'blue'}}> Sign In With Google </Text>
+           </TouchableOpacity>
+
       </View>
 
 
@@ -107,6 +205,8 @@ export default class LoginScreen extends React.Component {
   }
 
 }
+
+
 
 const styles = StyleSheet.create({
   container:{
