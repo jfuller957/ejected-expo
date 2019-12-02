@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default class LinksScreen extends React.Component {
+export default class ProfileScreen extends React.Component {
   render(){
     return (
       <ScrollView style={styles.container}>
@@ -25,8 +25,8 @@ export default class LinksScreen extends React.Component {
   }
 }
 
-LinksScreen.navigationOptions = {
-  title: 'Links',
+ProfileScreen.navigationOptions = {
+  title: 'Profile',
 };
 
 const styles = StyleSheet.create({

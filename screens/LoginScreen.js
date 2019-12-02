@@ -171,7 +171,7 @@ signInWithGoogleAsync = async () => {
            </View>
         </View>
         <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-          <Text>Login</Text>
+          <Text style={{color: 'white'}}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={ () => this.props.navigation.navigate("Register")}
@@ -187,13 +187,13 @@ signInWithGoogleAsync = async () => {
         <Text> Login using Facebook below:</Text>
         <TouchableOpacity
                   onPress={()=> this.loginWithFacebook()}
-                  style={{backgroundColor: 'blue', padding: 10}}>
+                  style={styles.button}>
                     <Text style={{color: 'white'}}> Login With Facebook </Text>
            </TouchableOpacity>
 
            <TouchableOpacity
                   onPress={()=> this.signInWithGoogleAsync()}
-                  style={{backgroundColor: 'white', padding: 10}}>
+                  style={{backgroundColor: 'white'}}>
                     <Text style={{color: 'blue'}}> Sign In With Google </Text>
            </TouchableOpacity>
 
@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30
+    marginTop: 30,
+    marginBottom: 20
   }
 })
