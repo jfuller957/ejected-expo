@@ -1,5 +1,5 @@
 import React from 'react';
-import  { View, Text, TextInput, StyleSheet } from 'react-native';
+import  { View, Text, TextInput, StyleSheet, ActivityIndicator } from 'react-native';
 import * as firebase from 'firebase';
 
 
@@ -16,6 +16,7 @@ export default class AuthLoadingScreen extends React.Component {
       <View style={styles.container}>
         <Text>Loading...</Text>
         <Text>The App will momentarially load.</Text>
+        <ActivityIndicator size='large' />
       </View>
     )
   }
