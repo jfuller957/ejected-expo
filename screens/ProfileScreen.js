@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from 'firebase'
@@ -7,21 +7,30 @@ import * as firebase from 'firebase'
 export default class ProfileScreen extends React.Component {
   state = {
     email:'',
-    name:''
+    name:'',
+    bio:'',
+    jobTitle:''
   }
   componentDidMount(){
     firebase.auth().onAuthStateChanged(user => {
       // console.log('user', user)
-      this.setState({email: user.email})
+      // this.setState({email: user.email})
 
       let person = {};
       const profile = firebase.firestore().collection('users').doc(user.email)
 
       profile.get()
-        .then(function(doc) {
+        .then(doc => {
           if (doc && doc.exists) {
               console.log("Document data:", doc.data());
-              person = doc.data()
+              const user = doc.data()
+              this.setState({name: user.name})
+              this.setState({email: user.email})
+              this.setState({ bio: user.bio})
+              this.setState({ jobTitle: user.jobTitle})
+              this.setState({ location: user.location})
+              this.setState({ skills: user.skills})
+              this.setState({ interests: user.interests})
           } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
@@ -37,23 +46,22 @@ export default class ProfileScreen extends React.Component {
   render(){
     return (
       <ScrollView style={styles.container}>
-        <Text> My Profile </Text>
-
-        <Text>
+        <Text style={styles.title}> My Profile </Text>
+        {/* <Text>
           Here is some text until i can figure out the console.log stuff
-        </Text>
+        </Text> */}
         <View>
           <Text>Name:</Text>
-          <Text> {this.state.name}</Text>
+          <Text>{this.state.name} </Text>
 
         </View>
         <View>
           <Text>Email:</Text>
-          <Text> {this.state.email}</Text>
+          <Text>{this.state.email}</Text>
         </View>
         <View>
           <Text>Bio:</Text>
-          <Text> {this.state.bio}</Text>
+          <Text>{this.state.bio}</Text>
 
         </View>
         <View>
@@ -62,12 +70,18 @@ export default class ProfileScreen extends React.Component {
         </View>
         <View>
           <Text>Interests:</Text>
-          <Text> {this.state.interests}</Text>
+          <FlatList
+            data={this.state.interests}
+            renderItem={({item}) => <Text>{item}</Text>}
+          />
 
         </View>
         <View>
           <Text>Skills:</Text>
-          <Text> {this.state.skills}</Text>
+          <FlatList
+            data={this.state.skills}
+            renderItem={({item}) => <Text>{item}</Text>}
+          />
 
         </View>
         <View>
@@ -104,5 +118,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 30
+  },
+  title: {
+    color: 'dodgerblue',
+    fontSize: 30
   }
 });
