@@ -87,7 +87,7 @@ signInWithGoogleAsync = async () => {
       //androidClientId: YOUR_CLIENT_ID_HERE,
       behavior: 'web',
       iosClientId:
-      'SECRET'
+      ''
       ,
       scopes: ['profile', 'email'],
     });
