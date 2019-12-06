@@ -68,8 +68,10 @@ export default class EditProfileScreen extends React.Component {
       "interests": this.state.interests,
       "skills": this.state.skills
     })
-    console.log('attemping to save')
-    console.log(`state.name: ${this.state.name}`)
+    console.log('Saved!')
+    this.setState({currentInterest: ''})
+    this.setState({currentSkill: ''})
+
   }
 
   render(){
@@ -171,7 +173,7 @@ export default class EditProfileScreen extends React.Component {
           <Text>{this.state.saved ? this.state.email : ''}</Text>
           <Text>{this.state.saved ? this.state.bio : ''}</Text>
           <Text>{this.state.saved ? this.state.interests : ''}</Text>
-          {/* <Text>{doc.data()}</Text> */}
+
         </View>
 
       </ScrollView>

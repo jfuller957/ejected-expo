@@ -5,12 +5,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from 'firebase'
 
 export default class ProfileScreen extends React.Component {
+
   state = {
     email:'',
     name:'',
     bio:'',
     jobTitle:''
   }
+
+
+
   componentDidMount(){
     firebase.auth().onAuthStateChanged(user => {
       // console.log('user', user)
@@ -44,12 +48,18 @@ export default class ProfileScreen extends React.Component {
     })
   }
   render(){
+    // this.getUser();
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.title}> My Profile </Text>
         {/* <Text>
           Here is some text until i can figure out the console.log stuff
         </Text> */}
+        <View>
+          <Text>Photo:</Text>
+          <Text>Coming Soon ...</Text>
+
+        </View>
         <View>
           <Text>Name:</Text>
           <Text>{this.state.name} </Text>
