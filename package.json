@@ -3,27 +3,12 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "web": "expo start --web",
     "test": "jest --watchAll",
     "postinstall": "jetify"
   },
-  "jest": {
-    "preset": "jest-expo"
-  },
   "dependencies": {
-    "@expo/samples": "~3.0.3",
-    "@expo/vector-icons": "^10.0.3",
     "@firebase/firestore": "^1.8.0",
     "@react-navigation/web": "^1.0.0-alpha.9",
-    "expo": "^35.0.0",
-    "expo-app-auth": "~7.0.0",
-    "expo-asset": "^7.0.0",
-    "expo-constants": "^7.0.0",
-    "expo-facebook": "~7.0.0",
-    "expo-font": "^7.0.0",
-    "expo-google-app-auth": "^7.0.0",
-    "expo-google-sign-in": "^7.0.0",
-    "expo-web-browser": "^7.0.0",
     "firebase": "^7.5.0",
     "path": "^0.12.7",
     "react": "16.9.0",
@@ -44,9 +29,7 @@
     "jest": "24.9.0",
     "jetifier": "^1.6.4",
     "metro-react-native-babel-preset": "0.56.0",
-    "react-test-renderer": "16.9.0",
-    "babel-preset-expo": "^7.0.0",
-    "jest-expo": "^35.0.0"
+    "react-test-renderer": "16.9.0"
   },
   "private": true,
   "name": "spark",
